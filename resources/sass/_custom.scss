@@ -1,0 +1,37 @@
+/**
+    * Custom css for OPD kiosk
+*/
+
+.router-link-exact-active {
+    background-color: rgb(35, 106, 187) !important;
+    color: #fff !important;
+}
+
+.router-link-exact-active i {
+    color: #fff !important;
+}
+
+.fixed-card {
+    height: 22em;
+    width: 15em;
+}
+
+// Print Queue CSS
+h1.display-1 {
+    font-size: 150px !important;
+    margin-top: -30px;
+}
+
+h4.department {
+    margin-top: -30px;
+}
+
+// 
+
+tr:hover {
+    cursor: pointer;
+}
+
+.highlight {
+    background-color: skyblue;
+}
