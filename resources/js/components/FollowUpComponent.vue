@@ -10,13 +10,18 @@
                   <div class="table-responsive">
                       <div>
                         <small class="text-muted">Below are the list of patients scheduled for a follow-up checkup today.</small>
-                        <div class="input-group float-right mb-1 col-4">
+
+                        <div class="input-group float-right mb-1 col-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-search text-info"></i></span>
                             </div>
-                            <input id="input_search" class="form-control form-control-sm" placeholder="Search">   
+                            <input id="input_search" class="form-control form-control-sm" placeholder="Search">
                         </div>
+
+                        <button @click="showSMSnotifier()" class="btn btn-outline-primary btn-sm float-right">SMS NOTIFICATION <i class="fa fa-sms fa-lg"></i> </button>
+
                       </div>
+
                       <table class="table table-sm table-bordered table-hover">
                           <thead>
                               <th scope="col" width="20%">Date/Time of Previous Checkup</th>
@@ -66,7 +71,7 @@
                                 <b style="font-size: 1.4em;">{{ this.department }}</b>
                             </h4>
                             <small class="form-text text-muted" style="font-size: 1.2em;">{{ this.date_now | standard_datetime }}</small>
-                            <small class="form-text text-muted" style="font-size: 1.2em;">{{ this.fullname }} {{ this.direction }}</small>                        
+                            <small class="form-text text-muted" style="font-size: 1.2em;">{{ this.fullname }} {{ this.direction }}</small>
                         </div>
                         <!-- print this -->
                     </div>
@@ -91,6 +96,67 @@
             </div>
         </div>
         <!-- modal loading -->
+
+
+        <div class="modal fade" id="mod_bydate" role="dialog" data-backdrop="static">
+            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- <h4>Scheduled for: <span class="text-primary">{{this.filterByDate}}</span></h4> -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group float-right mb-1 col-md-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-calendar text-info fa-lg"></i> <span> Select Date:</span></span>
+                                    </div>
+                                    <input id="bydate" v-model="filterByDate" type="date" class="form-control" placeholder="Search">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group float-right mb-1 col-md-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-map-marker-alt text-info fa-lg"></i> <span> Select Department:</span></span>
+                                    </div>
+                                    <select v-model="sel_dept" name="" id="selected_department" class="form-control">
+                                        <option :value="dept.tscode" v-for="dept in departments" :key="dept.tscode">{{dept.tsdesc}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row bg-dark text-light mt-2 font-weight-bold">
+                            <div class="col-md-1">Type</div>
+                            <div class="col-md-1">Time</div>
+                            <div class="col-md-2">Hospital No. </div>
+                            <div class="col-md-3">Name</div>
+                            <div class="col-md-2">Contact No.</div>
+                        </div>
+                        <div class="row mt-1 table-hover" v-for="pat in filteredPatients" :key="pat.hpercode">
+
+                            <div class="col-md-1">
+                                <span class="font-weight-bold text-success" v-if="pat.isReg!=1"><i class="fa fa-user-friends"></i> F2F</span>
+                                <span class="font-weight-bold text-primary" v-else-if="pat.isReg==1"><i class="fa fa-mobile-alt fa-lg"></i> Tele</span>
+                                <span class="font-weight-bold" v-else></span>
+                            </div>
+                            <div class="col-md-1">{{pat.ff_date | filterTime}}</div>
+                            <div class="col-md-2">{{pat.hpercode}}</div>
+                            <div class="col-md-3 font-weight-bold">{{pat.fullname}}</div>
+                            <div class="col-md-2">
+                                <span v-if="pat.pattel" class="font-weight-bold text-primary">
+                                    <a :href="httpAdd+pat.enccode" target="_blank" rel="noopener noreferrer">{{pat.pattel}}</a>
+                                </span>
+                                <span v-else class="text-muted">Not provided</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button @click="clearAll()" type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp; Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
   </div>
 </template>
 
@@ -98,8 +164,12 @@
 import moment from 'moment'
 
 export default {
+
     data() {
         return {
+
+            httpAdd: 'http://192.168.6.172/sms?enccode=',
+
             followup: [],
 
             pat_credentials: new Form({
@@ -122,11 +192,23 @@ export default {
                 pat_type: 0,
                 phic: 0,
                 ref_hospital: ''
-            })
+            }),
+
+            filterByDate: '',
+            departments: [],
+            filteredPatients: [],
+            sel_dept: '',
+
         }
     },
 
     methods: {
+
+
+        showSMSnotifier(){
+                $('#mod_bydate').modal('show')
+        },
+
         getFollowupPatients() {
             axios.get('api/getFollowupPatients').then(
                 ({data}) => {
@@ -174,7 +256,7 @@ export default {
                         })
                     }
                 }
-            )     
+            )
         },
 
         cancel_queue() {
@@ -189,14 +271,14 @@ export default {
         print_queue() {
             /**
              * We first have to check if the patient type is senior or not
-             * We can do so by using an if else condition that queries 
+             * We can do so by using an if else condition that queries
              * if patient type is 1 from the global variable then patient is senior
              * If not, then we have to get the variable on this component specified by the user.
-             * 
+             *
              * Other things we have to consider is the hospital referral or the PHIC insurance
              * but it does not really affect initial queuing of the patient so it's fine.
              */
-            
+
             this.opd_print.post("api/print_queue").then(
                 ({data}) => {
                     // print queue here (javascript)
@@ -212,21 +294,29 @@ export default {
         },
 
         getDate() {
-   
+
             var currentDate = new Date();
-            console.log(currentDate);
-  
+            // console.log(currentDate);
+
             var currentDateWithFormat = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-            console.log(currentDateWithFormat);
+            // console.log(currentDateWithFormat);
 
             this.dateNow = currentDateWithFormat;
-        }
+        },
+
+        clearAll(){
+
+                this.departments = '';
+                this.filteredPatients = '';
+                this.sel_dept = '';
+        },
     },
+
 
     created() {
         this.getFollowupPatients();
         this.getDate();
-        
+
         $(function(){
             $("#input_search").trigger('focus');
             let filterSearch = $("#input_search");
@@ -237,7 +327,38 @@ export default {
                 });
             });
         });
+    },
+
+    watch: {
+        filterByDate(val){
+            axios.post('api/getByDate').then(d=>{
+                console.log(d.data);
+                this.sel_dept = '';
+                this.departments = d.data.all_dept;
+
+                this.filteredPatients = d.data.byDate;
+                // this.filteredPatients = d.data.byDate;
+            });
+        },
+        sel_dept(val){
+            axios.post('api/getByDate', {
+                date: this.filterByDate,
+                dept: val
+            }).then(d=>{
+                console.log(d.data.byDate);
+                this.departments = d.data.all_dept;
+                this.filteredPatients = d.data.byDate;
+            });
+            console.log(val);
+        }
+    },
+    filters: {
+        filterTime: function (time) {
+            return moment(time).format('h:mm a');
+        }
     }
+
+
 }
 </script>
 

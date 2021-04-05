@@ -27,7 +27,7 @@
                         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <div class="nav-link text-success">OPD eRegistration Kiosk</div>  
+                        <div class="nav-link text-success">OPD eRegistration Kiosk</div>
                     </li>
                 </ul>
 
@@ -35,7 +35,7 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Messages Dropdown Menu -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="/"><i class="fa fa-arrow-left"></i> &nbsp; Back 
+                        <a class="nav-link" href="/"><i class="fa fa-arrow-left"></i> &nbsp; Back
                         </a>
                     </li>
                 </ul>
@@ -45,7 +45,7 @@
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-light-primary elevation-4">
                 <!-- Brand Logo -->
-                <a href="index3.html" class="brand-link">
+                <a href="#" class="brand-link">
                     <img src="{{ asset('images/bghlogogif.gif') }}" class="brand-image img-circle elevation-3"
                         style="opacity: .8">
                     <span class="brand-text font-weight-light">BGHMC OPD Kiosk</span>

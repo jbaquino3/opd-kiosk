@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+
 class FollowupController extends Controller
 {
     //
@@ -32,4 +33,21 @@ class FollowupController extends Controller
             return 1;
         }
     }
+
+    public function getFollowupPatients_bydate(Request $r) {
+        $date = $r->date;
+        $dept = $r->dept;
+        $byDate = DB::select("exec dbn.sp_kiosk_getFollowUpPatients_bydate '$date',  '$dept' ");
+        $departments = DB::table("dbo.htypser")
+                    ->where('tsstat', 'A')
+                    ->orderBy('tsdesc', 'ASC')
+                    ->get();
+
+        // return 0;
+        return json_encode([
+            'all_dept' => $departments,
+            'byDate' => $byDate
+        ]);
+    }
+
 }

@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/getFollowupPatients', 'FollowupController@getFollowupPatients');
 Route::get('/logFollowup', 'FollowupController@logFollowup');
 Route::get('/checkEncounter', 'FollowupController@checkEncounter');
+Route::post('/getByDate', 'FollowupController@getFollowupPatients_bydate');
 
 // departments routes
 Route::get('/load_departments', 'DepartmentController@loadDepartments');
