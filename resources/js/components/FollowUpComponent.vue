@@ -15,15 +15,15 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-search text-info"></i></span>
                             </div>
-                            <input id="input_search" class="form-control form-control-sm" placeholder="Search">
+                            <input id="input_search" class="form-control form-control-sm" placeholder="Search / Filter keyword">
                         </div>
 
-                        <button @click="showSMSnotifier()" class="btn btn-outline-primary btn-sm float-right">SMS NOTIFICATION <i class="fa fa-sms fa-lg"></i> </button>
+                        <button id="showSMS" hidden @click="showSMSnotifier()" class="btn btn-outline-primary btn-sm float-right">SMS NOTIFICATION <i class="fa fa-sms fa-lg"></i> </button>
 
                       </div>
 
                       <table class="table table-sm table-bordered table-hover">
-                          <thead>
+                          <thead class="sticky-top">
                               <th scope="col" width="20%">Date/Time of Previous Checkup</th>
                               <th scope="col" width="15%">Hospital Number</th>
                               <th scope="col" width="">Type</th>
@@ -97,13 +97,12 @@
         </div>
         <!-- modal loading -->
 
-
         <div class="modal fade" id="mod_bydate" role="dialog" data-backdrop="static">
             <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <!-- <h4>Scheduled for: <span class="text-primary">{{this.filterByDate}}</span></h4> -->
-                        <div class="row">
+                        <div class="row sticky-top">
                             <div class="col-md-6">
                                 <div class="input-group float-right mb-1 col-md-12">
                                     <div class="input-group-prepend">
@@ -118,6 +117,7 @@
                                         <span class="input-group-text"><i class="fa fa-map-marker-alt text-info fa-lg"></i> <span> Select Department:</span></span>
                                     </div>
                                     <select v-model="sel_dept" name="" id="selected_department" class="form-control">
+                                        <option value="all">ALL (OPD)</option>
                                         <option :value="dept.tscode" v-for="dept in departments" :key="dept.tscode">{{dept.tsdesc}}</option>
                                     </select>
                                 </div>
@@ -126,28 +126,37 @@
                     </div>
                     <div class="modal-body">
                         <div class="row bg-dark text-light mt-2 font-weight-bold">
+                            <div v-show="allDept == 1" class="col-md-2">Dept.</div>
                             <div class="col-md-1">Type</div>
                             <div class="col-md-1">Time</div>
-                            <div class="col-md-2">Hospital No. </div>
-                            <div class="col-md-3">Name</div>
-                            <div class="col-md-2">Contact No.</div>
+                            <div class="col-md-1">Hosp #</div>
+                            <div class="col-md-2">Name</div>
+                            <div class="col-md-2">Contact #</div>
+                            <div class="col-md-2">Scheduled By</div>
                         </div>
-                        <div class="row mt-1 table-hover" v-for="pat in filteredPatients" :key="pat.hpercode">
-
+                        <!-- <div class="mt-2" v-if="filteredPatients == ''">
+                            <h4 class="font-weight-bold">No scheduled patient</h4>
+                        </div> -->
+                        <tr v-if=" !filteredPatients " >
+                            <span class=" mt-3 spinner-grow text-info" style="width: 5rem; height: 5rem"></span>
+                        </tr>
+                        <div class="row mt-1 table-border" v-for="pat in filteredPatients" :key="pat.hpercode" style="border-bottom: 1px solid lightgray">
+                            <div v-show="allDept == 1" class="col-md-2">{{pat.tsdesc}}</div>
                             <div class="col-md-1">
                                 <span class="font-weight-bold text-success" v-if="pat.isReg!=1"><i class="fa fa-user-friends"></i> F2F</span>
-                                <span class="font-weight-bold text-primary" v-else-if="pat.isReg==1"><i class="fa fa-mobile-alt fa-lg"></i> Tele</span>
+                                <span class="font-weight-bold text-info" v-else-if="pat.isReg==1"><i class="fa fa-mobile-alt fa-lg"></i> Tele</span>
                                 <span class="font-weight-bold" v-else></span>
                             </div>
                             <div class="col-md-1">{{pat.ff_date | filterTime}}</div>
-                            <div class="col-md-2">{{pat.hpercode}}</div>
-                            <div class="col-md-3 font-weight-bold">{{pat.fullname}}</div>
+                            <div class="col-md-1" style="font-size: 70%">{{pat.hpercode}}</div>
+                            <div class="col-md-2 font-weight-bold">{{pat.fullname}}</div>
                             <div class="col-md-2">
                                 <span v-if="pat.pattel" class="font-weight-bold text-primary">
                                     <a :href="httpAdd+pat.enccode" target="_blank" rel="noopener noreferrer">{{pat.pattel}}</a>
                                 </span>
                                 <span v-else class="text-muted">Not provided</span>
                             </div>
+                            <div class="col-md-2">{{pat.scheduledby}}</div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -198,6 +207,7 @@ export default {
             departments: [],
             filteredPatients: [],
             sel_dept: '',
+            allDept: 0,
 
         }
     },
@@ -331,25 +341,47 @@ export default {
 
     watch: {
         filterByDate(val){
+            const x = this;
             axios.post('api/getByDate').then(d=>{
                 console.log(d.data);
-                this.sel_dept = '';
-                this.departments = d.data.all_dept;
+                x.sel_dept = '';
+                x.departments = d.data.all_dept;
 
-                this.filteredPatients = d.data.byDate;
+                x.filteredPatients = d.data.byDate;
+
                 // this.filteredPatients = d.data.byDate;
             });
         },
         sel_dept(val){
-            axios.post('api/getByDate', {
-                date: this.filterByDate,
-                dept: val
-            }).then(d=>{
-                console.log(d.data.byDate);
-                this.departments = d.data.all_dept;
-                this.filteredPatients = d.data.byDate;
-            });
             console.log(val);
+            const x = this;
+
+            if(val=='all'){
+                console.log('lahat daw');
+                x.allDept = 1;
+
+                x.filteredPatients = '';
+
+                axios.post('api/getall', {
+                    date: this.filterByDate,
+                }).then(d=>{
+                    x.departments = d.data.all_dept;
+                    x.filteredPatients = d.data.byDate;
+                });
+            }else{
+                x.allDept = 0;
+
+                x.filteredPatients = '';
+
+                axios.post('api/getByDate', {
+                    date: this.filterByDate,
+                    dept: val
+                }).then(d=>{
+                    // console.log(d.data.byDate);
+                    x.departments = d.data.all_dept;
+                    x.filteredPatients = d.data.byDate;
+                });
+            }
         }
     },
     filters: {

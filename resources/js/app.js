@@ -69,7 +69,7 @@ Vue.filter('dateFormat', function(ldate) {
 });
 
 Vue.filter('dateOnly', function(date){
-    return moment(date).format('LL');  
+    return moment(date).format('LL');
 });
 
 Vue.filter('formatDate', function(value) {
@@ -93,6 +93,11 @@ let routes = [
         path: '/follow_up',
         component:require('./components/FollowUpComponent.vue').default
     },
+    {
+        path: '/SMSnotification',
+        component:require('./components/SMSnotifications.vue').default
+    },
+
     {
         path: '/im',
         component: require('./apex_components/InternalMedComponent.vue').default
@@ -146,7 +151,7 @@ let routes = [
     {
         path: '/screening',
         component:require('./pcc_components/ScreeningComponent.vue').default
-    }
+    },
 ];
 
 const router = new VueRouter({

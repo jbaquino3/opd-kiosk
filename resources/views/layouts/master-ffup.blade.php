@@ -66,10 +66,26 @@
                             <!-- Add icons to the links using the .nav-icon class
                                 with font-awesome or any other icon font library -->
                             <li class="nav-item has-treeview menu-open">
-                                <router-link to="/ffup" class="nav-link active">
+                                <router-link to="/follow_up" class="nav-link active">
                                     <i class="nav-icon fa fa-notes-medical"></i>
                                     <p>
                                         Follow Up Patients
+                                    </p>
+                                </router-link>
+                            </li>
+                            {{-- <li class="nav-item mt-1">
+                                <router-link to="#" class="nav-link bg-success" onclick="document.getElementById('showSMS').click()">
+                                    <i class="nav-icon fa fa-envelope"></i>
+                                    <p>
+                                        SMS Notification
+                                    </p>
+                                </router-link>
+                            </li> --}}
+                            <li class="nav-item has-treeview menu-open mt-1">
+                                <router-link to="/SMSnotification" class="nav-link active bg-success">
+                                    <i class="nav-icon fa fa-envelope"></i>
+                                    <p>
+                                        SMS Notification
                                     </p>
                                 </router-link>
                             </li>
@@ -92,7 +108,7 @@
             <!-- /.content-wrapper -->
             <footer class="main-footer">
                 <strong>Developed by the BGHMC MIS Department</strong>
-                All rights reserved. 2020
+                All rights reserved. 2020 | IHOMS 2021
             </footer>
 
         </div>

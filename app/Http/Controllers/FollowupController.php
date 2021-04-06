@@ -50,4 +50,21 @@ class FollowupController extends Controller
         ]);
     }
 
+    public function getFollowupPatients_all(Request $r) {
+        $date = $r->date;
+
+        $byDate = DB::select("exec dbn.sp_kiosk_getFollowUpPatients_all '$date' ");
+
+        $departments = DB::table("dbo.htypser")
+                    ->where('tsstat', 'A')
+                    ->orderBy('tsdesc', 'ASC')
+                    ->get();
+
+        // return 0;
+        return json_encode([
+            'all_dept' => $departments,
+            'byDate' => $byDate
+        ]);
+    }
+
 }
