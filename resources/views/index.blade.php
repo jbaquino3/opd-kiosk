@@ -7,9 +7,10 @@
 
     <!-- CSRF TOKEN -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <title>OPD eKiosk</title>
 
+    <link rel="icon" href="{{url('logo/bghmc.png')}}">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -29,7 +30,7 @@
                 <div class="row no-gutters">
                     <a class="btn btn-success btn-lg btn-block" href="/apex">APEX</a>
                     <a class="btn btn-primary btn-lg btn-block" href="/pcc">PRIMARY CARE CENTER</a>
-                    <a class="btn btn-info btn-lg btn-block" href="/follow_up">FOLLOW UP PATIENTS</a>
+                    <a class="btn btn-info btn-lg btn-block text-light" href="/follow_up">FOLLOW UP PATIENTS</a>
                 </div>
             </div>
         </div>

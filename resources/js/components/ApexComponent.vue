@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="col-md-3"></div>
                             </div>
-                            
+
                         </div>
                         <hr>
                         <SimpleKeyboard
@@ -124,7 +124,7 @@
                             @onKeyPress="onKeyPress"
                             :input="inputs[inputName]"
                             :inputName="inputName"
-                        />  
+                        />
                     </div>
                 </div>
             </div>
@@ -188,7 +188,7 @@
                             </div>
                             <div class="col-md-3"></div>
                             <input type="hidden" name="image" class="image-tag" v-model="frm_img.img">
-                            <input type="hidden" name="hospitalno" id="hospitalno">       
+                            <input type="hidden" name="hospitalno" id="hospitalno">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -222,13 +222,13 @@
                                     <br>
                                     <h6 class="text-center"><b>PAGSANG-AYON SA PAGKOLEKTA NG PERSONAL NA IMPORMASYON</b></h6>
                                     <hr>
-                                    Ang inyong pribadong pagkakakilanlan ay napakahalaga sa amin at ang lahat ng nakalap na personal na impormasyon ay aming maalagaan ng mabuti kaya lahat ng pagsisikap ay aming gagawin upang maprotektahan ito.  Lahat ng mga empleyado na dadaanan ng inyong impormasyong ibinahagi sa amin ay may sapat na kaalaman hinggil sa taglay nitong likas na sensitibong detalye. Sila rin ay may sapat na kaalaman ukol  sa tamang paggamit at proteksiyon ng inyong impormasyon. Tanging ang mga kailangang impormasyon lamang ang makokolekta at maibabahagi ng may karampatang pahintulot na maibahagi ito. Ang aming pribadong panuntunan ay nasasang-ayon sa pamantayang ibinigay ng National Privacy Commission. 
+                                    Ang inyong pribadong pagkakakilanlan ay napakahalaga sa amin at ang lahat ng nakalap na personal na impormasyon ay aming maalagaan ng mabuti kaya lahat ng pagsisikap ay aming gagawin upang maprotektahan ito.  Lahat ng mga empleyado na dadaanan ng inyong impormasyong ibinahagi sa amin ay may sapat na kaalaman hinggil sa taglay nitong likas na sensitibong detalye. Sila rin ay may sapat na kaalaman ukol  sa tamang paggamit at proteksiyon ng inyong impormasyon. Tanging ang mga kailangang impormasyon lamang ang makokolekta at maibabahagi ng may karampatang pahintulot na maibahagi ito. Ang aming pribadong panuntunan ay nasasang-ayon sa pamantayang ibinigay ng National Privacy Commission.
                                     <br><br>
-                                    Ang mga makakalap na  impormasyon ay magagamit at maibabahagi sa mga sumusunod na layunin: pagpoproseso ng  inyong pag rehistro  gamit ang aming HOMIS; pagbibigay ng karampatang pag-aalagang medikal at pagpapayo ukol sa ibang paraan ng paggagamot; panatilihin at paigtingin ang pakikipagugnayan sa inyo; mabahagian kayo ng kopya ng  mga newsletter at iba pang impormasyon na may kinalaman sa “Data Breach”; kami ay inyong mabigyan ng pahintulot na epektibong masubaybayan ang inyong pagpapagamot, at sa mga bagay na may kinalaman sa bayarin sa aming ospital; pagpoproseso ng inyong PHIC Claims o iba pang Insurance Claims; maiproseso ang inyong mga  bayarin at makakolekta ng anumang mga bayaring hindi nabayaran; makasunod  sa mga alituntunin na hinihingi ng  specialty board at makasunod sa lahat ng regulasyong legal kasama na dito ang lahat ng kautusan ng korte, mga pamantayang naayon sa batas, pag-uulat ng mga nakakahawang sakit at mga indibidwal na maaaring magbigay ng panganib sa kanyang sarili o sa iba. 
+                                    Ang mga makakalap na  impormasyon ay magagamit at maibabahagi sa mga sumusunod na layunin: pagpoproseso ng  inyong pag rehistro  gamit ang aming HOMIS; pagbibigay ng karampatang pag-aalagang medikal at pagpapayo ukol sa ibang paraan ng paggagamot; panatilihin at paigtingin ang pakikipagugnayan sa inyo; mabahagian kayo ng kopya ng  mga newsletter at iba pang impormasyon na may kinalaman sa “Data Breach”; kami ay inyong mabigyan ng pahintulot na epektibong masubaybayan ang inyong pagpapagamot, at sa mga bagay na may kinalaman sa bayarin sa aming ospital; pagpoproseso ng inyong PHIC Claims o iba pang Insurance Claims; maiproseso ang inyong mga  bayarin at makakolekta ng anumang mga bayaring hindi nabayaran; makasunod  sa mga alituntunin na hinihingi ng  specialty board at makasunod sa lahat ng regulasyong legal kasama na dito ang lahat ng kautusan ng korte, mga pamantayang naayon sa batas, pag-uulat ng mga nakakahawang sakit at mga indibidwal na maaaring magbigay ng panganib sa kanyang sarili o sa iba.
                                     <br><br>
-                                    Nabasa at naintindihan  ko ang mga nasabing kondisyon kung saan ipinaliwanag ng BGHMC ang paggamit ng aking personal na impormasyon at ang kanilang hakbang na gagawin para maprotektahan ang aking impormasyon. 
+                                    Nabasa at naintindihan  ko ang mga nasabing kondisyon kung saan ipinaliwanag ng BGHMC ang paggamit ng aking personal na impormasyon at ang kanilang hakbang na gagawin para maprotektahan ang aking impormasyon.
                                     <br><br>
-                                    Ako ay sumasang-ayon na ang BGHMC ay makakakalap, magagamit at maibabahagi ang aking personal na impormasyon at mapoprotektahan ang kompidensyal at integridad na nasasaad sa Data Privacy Manual ng Baguio General Hospital and Medical Center 
+                                    Ako ay sumasang-ayon na ang BGHMC ay makakakalap, magagamit at maibabahagi ang aking personal na impormasyon at mapoprotektahan ang kompidensyal at integridad na nasasaad sa Data Privacy Manual ng Baguio General Hospital and Medical Center
                                     <hr>
                                     <div class="pull-right">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Kanselahin</button>
@@ -240,13 +240,13 @@
                                     <br>
                                     <h6 class="text-center"><b>CONSENT PRIOR TO THE COLLECTION OF PERSONAL INFORMATION</b></h6>
                                     <hr>
-                                    Your privacy is very important to us and all information collected will be handled responsibly. All effort will be made to be as open and transparent as possible with how your information is handled and protected. All staff members who come in contact with your personal information are aware of the sensitive nature of the information that you have disclosed to us. They are trained in the appropriate use and protection of your information. Only necessary or relevant information will be collected and this information will only be shared with your consent. Our privacy protocols are in accordance with the standards set by the National Privacy Commission. 
+                                    Your privacy is very important to us and all information collected will be handled responsibly. All effort will be made to be as open and transparent as possible with how your information is handled and protected. All staff members who come in contact with your personal information are aware of the sensitive nature of the information that you have disclosed to us. They are trained in the appropriate use and protection of your information. Only necessary or relevant information will be collected and this information will only be shared with your consent. Our privacy protocols are in accordance with the standards set by the National Privacy Commission.
                                     <br><br>
                                     Information will be collected, used and disclosed for the following purposes: to process registration of your information to the HOMIS; assess your health concerns; provide health care;  advise you of treatment options; to establish and maintain contact with you; to send you newsletter and other information related to data breach; remind you of your medical appointment; to allow us to effectively follow up for treatment care and billing; process PHIC Claims or Insurance Claims; process payments, collect unpaid accounts; comply with hospital and department accreditation; comply with specialty board examination or certification and comply with all regulatory and legal requirements including court orders, statutory requirements to advise authorities and reporting of communicable diseases and individuals who may be in danger of harming themselves or others
                                     <br><br>
-                                    By agreeing on this Patient Consent Form, you have agreed that you have given your consent to the collection, use and/or disclosure of your personal information as outlined above. I have reviewed the above conditions which that explains how your hospital will use my personal information and steps that your hospital is taking to protect my information. 
+                                    By agreeing on this Patient Consent Form, you have agreed that you have given your consent to the collection, use and/or disclosure of your personal information as outlined above. I have reviewed the above conditions which that explains how your hospital will use my personal information and steps that your hospital is taking to protect my information.
                                     <br><br>
-                                    I agree that Baguio General Hospital and Medical Center can collect, use and disclose personal information about myself   and protect its confidentiality and integrity as stated in the Data Privacy Manual of Baguio General Hospital and Medical Center.  
+                                    I agree that Baguio General Hospital and Medical Center can collect, use and disclose personal information about myself   and protect its confidentiality and integrity as stated in the Data Privacy Manual of Baguio General Hospital and Medical Center.
                                     <hr>
                                     <div class="pull-right">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -416,6 +416,7 @@
                     this.selected_patient = this.frm_searchPatient.hpercode;
                     axios.get("api/opd_bio?hpercode=" + this.frm_searchPatient.hpercode).then(
                         ({data}) => {
+                            // console.log(data, 'asdasd');
                             if (data == 1) {
                                 try {
                                     axios.get("api/log_patient?hpercode=" + this.frm_searchPatient.hpercode).then(
@@ -450,6 +451,7 @@
                             } else {
                                 axios.get("api/get_patient_details?hpercode=" + this.frm_searchPatient.hpercode).then(
                                     ({data}) => {
+                                        console.log(data);
                                         $('#hospitalno').val(this.frm_searchPatient.hpercode);
                                         this.img_user = data[0]['patimage'];
                                         this.patname = data[0]['fullname'];
@@ -461,7 +463,9 @@
                                         $('#mod_search').modal('hide');
                                         $('#mod_registration').modal('show');
                                     }
-                                );
+                                ).catch((error) => {
+                                    console.log(error);
+                                });
                             }
                         }
                     );
@@ -490,11 +494,11 @@
                                 }
                             }
                         ).catch((err) => {
-                            this.searching = false; 
-                            console.log(err); 
+                            this.searching = false;
+                            console.log(err);
                         });
                     } catch(ex) {
-                        
+
                     }
                 } else {
                     Swal.fire({
@@ -540,7 +544,7 @@
                                         $('#mod_searched').modal('hide');
                                     } else {
                                         this.searching = false;
-                                        
+
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'Oops...',
@@ -621,7 +625,7 @@
                  */
                 if (globalVariables.webcam_in != 0) {
                     Webcam.snap(function(data_uri) {
-                        
+
                         axios.post('api/register_patient?imgdata=' + data_uri + '&hpercode=' + $('#hospitalno').val()).then(
                             ({data}) => {
                                 $('#mod_registration').modal('hide');
@@ -634,14 +638,14 @@
                                     timer: 1500
                                 });
                                 Webcam.reset();
-                                _this.logPatient();  
+                                _this.logPatient();
                             }
                         )
                     });
                     //this.logPatient();
                 } else {
                     console.log($('#hospitalno').val());
-                    
+
                     axios.post('api/register_patient_noimg?hpercode='+$('#hospitalno').val()).then(
                         ({data}) => {
                             $('#mod_registration').modal('hide');
@@ -656,7 +660,7 @@
                             _this.logPatient();
                         }
                     );
-                    
+
                 }
             },
 

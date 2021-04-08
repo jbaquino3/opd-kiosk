@@ -10,6 +10,7 @@
 
     <title>OPD eKiosk - Primary Care Center</title>
 
+    <link rel="icon" href="{{url('logo/bghmc.png')}}">
     <!--scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -27,7 +28,7 @@
                         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <div class="nav-link text-success">OPD eRegistration Kiosk - PCC</div>  
+                        <div class="nav-link text-success">OPD eRegistration Kiosk - PCC</div>
                     </li>
                 </ul>
 
@@ -35,7 +36,7 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Messages Dropdown Menu -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="/"><i class="fa fa-arrow-left"></i> &nbsp; Back 
+                        <a class="nav-link" href="/"><i class="fa fa-arrow-left"></i> &nbsp; Back
                         </a>
                     </li>
                 </ul>

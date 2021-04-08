@@ -45,7 +45,6 @@
                             <div v-else>
                                 <small class="form-text text-muted" style="font-size: 1.2em;">{{ this.fullname }} (Priority) {{ this.direction }}</small>
                             </div>
-                            
                         </div>
                         <!-- print this -->
                         <div class="accordion" id="opd_accordion">
