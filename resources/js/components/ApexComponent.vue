@@ -428,6 +428,7 @@
                                                 } else {
                                                     globalVariables.var_priority = 0;
                                                 }
+                                                console.log(data[0]['patimage']);
                                                 this.img_user = data[0]['patimage'];
                                                 this.fullname = data[0]['fullname'];
                                                 this.gender = data[0]['patsex'];
@@ -440,7 +441,7 @@
                                             } else {
                                                 this.searching = false;
                                                 Swal.fire({
-                                                    icon: 'error',
+                                                    icon: 'warning',
                                                     title: 'Oops...',
                                                     text: 'The patient already has an existing encounter for today!'
                                                 })
@@ -453,6 +454,7 @@
                                     ({data}) => {
                                         console.log(data);
                                         $('#hospitalno').val(this.frm_searchPatient.hpercode);
+                                        console.log(data[0]['patimage']);
                                         this.img_user = data[0]['patimage'];
                                         this.patname = data[0]['fullname'];
                                         this.pataddress = data[0]['address'];
