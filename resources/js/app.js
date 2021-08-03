@@ -97,6 +97,24 @@ let routes = [
         path: '/SMSnotification',
         component:require('./components/SMSnotifications.vue').default
     },
+    {
+        path: '/teleconsultation',
+        component:require('./components/TeleconsultationComponent.vue').default,
+        children: [
+            {
+                path: '/',
+                redirect: 'walkin'
+            },
+            {
+                path: 'walkin',
+                component:require('./ok_components/WalkinComponent.vue').default
+            },
+            {
+                path: 'scheduled',
+                component:require('./ok_components/ScheduledComponent.vue').default
+            }
+        ]
+    },
 
     {
         path: '/im',

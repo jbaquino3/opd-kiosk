@@ -31,6 +31,7 @@
                     <a class="btn btn-success btn-lg btn-block" href="/apex">APEX</a>
                     <a class="btn btn-primary btn-lg btn-block" href="/pcc">PRIMARY CARE CENTER</a>
                     <a class="btn btn-info btn-lg btn-block text-light" href="/follow_up">FOLLOW UP PATIENTS</a>
+                    <a class="btn btn-danger btn-lg btn-block text-light" href="/teleconsultation">TELECONSULTATIONS</a>
                 </div>
             </div>
         </div>

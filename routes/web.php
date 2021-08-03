@@ -27,6 +27,10 @@ Route::get('/follow_up', function() {
     return view('layouts.master-ffup');
 });
 
+Route::get('/teleconsultation', function() {
+    return view('layouts.master-tel');
+});
+
 // no defined path
 Route::get('{path}', "IndexController@index")->where('path', '([A-z\d-\/_.]+)?');
 // Route::get('{path}', "IndexController@index");
