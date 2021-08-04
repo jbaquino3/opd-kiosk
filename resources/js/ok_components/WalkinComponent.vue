@@ -2,7 +2,7 @@
   <div>
       <div class="content-header">
           <div class="container-fluid">
-              <h3>OPD Teleconsultation Patients ({{ this.dateNow | dateOnly }})</h3>
+              <h3>Walk-in Teleconsultations ({{ this.dateNow | dateOnly }})</h3>
           </div>
           <!-- .content-header -->
           <section class="content">
@@ -32,11 +32,9 @@
                           </thead>
                           <tbody>
                               <!-- <tr v-for="pat in followup" :key="pat.hpercode" @click="generate_queue(pat.hpercode, pat.tscode)"> -->
-                              <tr v-for="pat in followup" :key="pat.tStamp" @click="generate_queue(pat.hpercode, pat.tscode)">
+                              <tr v-for="pat in followup" :key="pat.tStamp" @click="generate_queue(pat.hpercode, pat.tscode, pat.opdtype)">
                                   <td>{{ pat.hpercode }}</td>
-                                  <td>
-                                      <span class="font-weight-bold text-primary"><i class="fa fa-mobile-alt fa-lg"></i></span>
-                                  </td>
+                                  <td>{{ pat.opdtype }}</td>
                                   <td>{{ pat.fullname }}</td>
                                   <td>{{ pat.tsdesc }}</td>
                                   <td>{{ pat.created_at | standard_datetime }}</td>
@@ -66,7 +64,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" @click="cancel_queue()" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp; Cancel</button>
-                        <button type="button" class="btn btn-primary" @click="print_queue()"><i class="fa fa-print"></i>&nbsp; Print</button>
+                        <button type="button" class="btn btn-primary" @click="print_queue()"><i class="fa fa-print"></i>&nbsp; Proceed</button>
                     </div>
                 </div>
             </div>
@@ -208,16 +206,16 @@ export default {
                 $('#mod_bydate').modal('show')
         },
 
-        getFollowupPatients() {
-            axios.get('api/getFollowupPatients').then(
+        getWalkinConsultations() {
+            axios.get('/api/getWalkinConsultations').then(
                 ({data}) => {
                     this.followup = data;
                 }
             )
         },
 
-        generate_queue(hpercode, tscode) {
-            axios.get('api/checkEncounter?hpercode=' + hpercode).then(
+        generate_queue(hpercode, tscode, opd_type) {
+            axios.get('/api/checkEncounter?hpercode=' + hpercode).then(
                 ({data}) => {
                     if ( data == 0) {
                         // no encounter today
@@ -231,8 +229,9 @@ export default {
                                 $('#mod_loading').modal('show');
                                 this.pat_credentials.hpercode = hpercode;
                                 this.pat_credentials.tscode = tscode;
+                                this.pat_credentials.opd_type = opd_type;
 
-                                this.pat_credentials.post("api/generate_queue").then(
+                                this.pat_credentials.post("/api/generate_queue").then(
                                     ({data}) => {
                                         this.opd_print.enccode = data[0]['enccode'];
                                         this.queue = data[0]['filling'];
@@ -240,10 +239,22 @@ export default {
                                         this.date_now = data[0]['datenow'];
                                         this.direction = data[0]['directions'];
                                         this.department = data[0]['department'];
-                                        $('#mod_loading').modal('hide');
-                                        $('#mod_ffqueue').modal('show');
+
+                                        axios.get("/api/set_teleconsultation?enccode=" + this.opd_print.enccode).then(
+                                            ({data}) => {
+                                                this.queue = data[0]['filling'];
+                                                this.temp_fullname = this.fullname;
+                                                this.temp_direction = this.direction;
+                                                this.fullname = this.temp_fullname + ' (Teleconsultation) ';
+                                                this.direction = "";
+                                                $('#mod_loading').modal('hide');
+                                                $('#mod_ffqueue').modal('show');
+                                            }
+                                        )
                                     }
                                 )
+
+
                             }
                         })
                     } else {
@@ -259,7 +270,7 @@ export default {
         },
 
         cancel_queue() {
-            axios.get("api/cancel_queue?enccode=" + this.opd_print.enccode).then(
+            axios.get("/api/cancel_queue?enccode=" + this.opd_print.enccode).then(
                 ({data}) => {
                     // simple cancellation of the registered queue
                     console.log('deleted queue');
@@ -278,16 +289,10 @@ export default {
              * but it does not really affect initial queuing of the patient so it's fine.
              */
 
-            this.opd_print.post("api/print_queue").then(
+            this.opd_print.post("/api/print_queue").then(
                 ({data}) => {
-                    // print queue here (javascript)
-                    try {
-                        this.$htmlToPaper('print_section');
-                    } catch(ex) {
-
-                    }
                     $('#mod_ffqueue').modal('hide');
-                    this.$router.push('/follow_up');
+                    this.$router.push('/teleconsultation/walkin');
                 }
             );
         },
@@ -313,7 +318,7 @@ export default {
 
 
     created() {
-        this.getFollowupPatients();
+        this.getWalkinConsultations();
         this.getDate();
 
         $(function(){
@@ -331,7 +336,7 @@ export default {
     watch: {
         filterByDate(val){
             const x = this;
-            axios.post('api/getByDate').then(d=>{
+            axios.post('/api/getByDate').then(d=>{
                 console.log(d.data);
                 x.sel_dept = '';
                 x.departments = d.data.all_dept;
@@ -351,7 +356,7 @@ export default {
 
                 x.filteredPatients = '';
 
-                axios.post('api/getall', {
+                axios.post('/api/getall', {
                     date: this.filterByDate,
                 }).then(d=>{
                     x.departments = d.data.all_dept;
@@ -362,7 +367,7 @@ export default {
 
                 x.filteredPatients = '';
 
-                axios.post('api/getByDate', {
+                axios.post('/api/getByDate', {
                     date: this.filterByDate,
                     dept: val
                 }).then(d=>{

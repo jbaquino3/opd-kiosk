@@ -17,6 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// teleconsultation routes
+Route::get('/getScheduledConsultations', 'TeleconsultationController@getScheduledConsultations');
+Route::get('/getWalkinConsultations', 'TeleconsultationController@getWalkinConsultations');
+
 //followup routes
 Route::get('/getFollowupPatients', 'FollowupController@getFollowupPatients');
 Route::get('/logFollowup', 'FollowupController@logFollowup');
